@@ -1,0 +1,14 @@
+label {
+    margin-top: 0.3em;
+    width: 100px;
+    text-align: right;
+}
+
+.button {
+    text-align: right;
+    width: 50%;
+}
+
+.messages {
+    color: #8f3636;
+}

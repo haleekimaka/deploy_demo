@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login and Registration</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'login_reg/login_reg.css' %}">
+
+    </head>
+    <body>
+        <div class="container p-3">
+            <h1>Registration</h1>
+            <br>
+            {% if messages %}
+            <div class="alert alert-danger">
+                <ul>
+                {% for message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <form action="/register" method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="f_name">First Name:</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control d-inline" name="f_name"><br>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="l_name">Last Name:</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control d-inline" name="l_name"><br>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email">Email</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control d-inline" name="email"><br>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pwd">Password:</label>
+                    <div class="col-5">
+                    <input type="password" class="form-control d-inline" name="pwd"><br>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pwd_c">Confirm pw:</label>
+                    <div class="col-5">
+                    <input type="password" class="form-control d-inline" name="pwd_c"><br>
+                    </div>
+                </div>
+                <div class="form-group button">
+                    <input type="submit" class="btn btn-primary" name="submit" value="Register">
+                </div>
+            </form>
+            <br>
+            <h1>Login</h1>
+            <br>
+            <form action="/login" method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="email">Email</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control d-inline" name="email"><br>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pwd">Password:</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control d-inline" name="pwd"><br>
+                    </div>
+                </div>
+                <div class="form-group button">
+                    <input type="submit" class="btn btn-primary" name="submit" value="Login">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
