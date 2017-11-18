@@ -1,9 +1,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
-import re, bcrypt
+import re, bcrypt, time, datetime
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+BDAY_REGEX = re.compile(r'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$')
 
 def num_check(name):
     #checks if the entered password meets our requirements
@@ -56,6 +57,9 @@ class UserManager(models.Manager):
         if num_check(postData['l_name']):
             errors['l_name'] = "Names must only contain letters"
 
+        if not BDAY_REGEX.match(postData['bday']):
+            errors["bday"] = "Birthdate must be in format yyyy-mm-dd"
+
         if not EMAIL_REGEX.match(postData['email']):
             errors["email"] = "Invalid email address"
 
@@ -100,6 +104,7 @@ class UserManager(models.Manager):
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    birthdate = models.DateField(default=None)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -108,4 +113,4 @@ class User(models.Model):
     objects = UserManager()
 
     def __repr__(self):
-        return "<User object: id='{}' first_name='{}' last_name='{}' email='{}' created='{}'>".format(self.id, self.first_name, self.last_name, self.email, self.created_at)
+        return "<User object: id='{}' first_name='{}' last_name='{}' birthdate='{}' email='{}' created='{}'>".format(self.id, self.first_name, self.last_name, self.birthdate, self.email, self.created_at)
